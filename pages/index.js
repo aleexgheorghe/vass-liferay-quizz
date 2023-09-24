@@ -16,15 +16,26 @@ export default function Home() {
 	const { authenticated, login, logout } = useContext(AuthContext);
 	const [error, setError] = useState(null);
 
-	const handleLogin = (e) => {
-		e.preventDefault();
-		if (username === "admin" && password === "admin") {
-			login();
-			setError(null);
-		} else {
-			setError("Invalid credentials");
-		}
-	};
+  const users = [
+    { username: "pabloh", password: "pablo.vass" },
+    { username: "alexg", password: "alex.vass" },
+    { username: "testUser", password: "testP4ssword" },
+  ];
+
+  const isValidCredentials = (inputUsername, inputPassword) => {
+    return users.some(user => user.username === inputUsername && user.password === inputPassword);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (isValidCredentials(username, password)) {
+        login();
+        setError(null);
+    } else {
+        setError("Login failed");
+    }
+  };
 
   return (
     <main className="bg-gray-100 h-screen flex items-center justify-center relative p-4 md:p-0">
