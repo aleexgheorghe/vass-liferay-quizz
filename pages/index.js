@@ -1,66 +1,136 @@
-'use client';
-import Link from 'next/link';
-import { useContext, useState } from 'react';
-import AuthContext from '../context/authContext';
+"use client";
+import Link from "next/link";
+import { useContext, useState } from "react";
+import AuthContext from "../context/authContext";
+import {
+	IconHexagonNumber1,
+	IconHexagonNumber2,
+	IconHexagonNumber3,
+	IconHexagonNumber4,
+  IconLogout,
+} from "@tabler/icons-react";
 
 export default function Home() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const { authenticated, login } = useContext(AuthContext);
-  const [error, setError] = useState(null);
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const { authenticated, login, logout } = useContext(AuthContext);
+	const [error, setError] = useState(null);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (username === 'admin' && password === 'admin') {
-      login();
-      setError(null);
-    } else {
-      setError('Invalid credentials');
-    }
-  };
+	const handleLogin = (e) => {
+		e.preventDefault();
+		if (username === "admin" && password === "admin") {
+			login();
+			setError(null);
+		} else {
+			setError("Invalid credentials");
+		}
+	};
 
-  return (
-    <main className="bg-blue-300 h-screen flex items-center justify-center">
-      <div className="container bg-white p-8 rounded-lg shadow-md max-w-lg">
-        <h1 className="text-center text-3xl font-bold mb-6">Liferay Quizz</h1>
-
-        {authenticated ? (
-          <div className="flex justify-center">
-            <Link href="/quizz/page">
-              <button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-2 transition duration-300 ease-in-out rounded-lg shadow-md">
-                Start
-              </button>
-            </Link>
-          </div>
-        ) : (
-          <>
-    <form onSubmit={handleLogin}>
-        <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="mb-4 w-full p-2 border-blue-300 bg-blue-50 hover:border-blue-500 rounded-md"
-        />
-        <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mb-4 w-full p-2 border-blue-300 bg-blue-50 hover:border-blue-500 rounded-md"
-        />
+	return (
+    <main className="bg-gray-100 h-screen flex items-center justify-center relative">
+    {authenticated && (
         <button
-            type="submit"
-            className={`bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-2 transition duration-300 ease-in-out rounded-lg shadow-md block w-full ${(!username || !password) ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={!username || !password}
+            onClick={logout}
+            className="absolute top-4 right-4 p-3 bg-red-500 hover:bg-red-600 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 rounded-md shadow-sm"
         >
-            Login
+          <IconLogout className="w-6 h-6" />
         </button>
-    </form>
-            {error && <p className="mt-4 text-center text-red-500">{error}</p>}
-          </>
-        )}
-      </div>
-    </main>
-  )
+    )}
+			<div className="container bg-white p-8 rounded-lg shadow-lg max-w-lg space-y-6">
+				<h1 className="text-center text-3xl font-bold mb-6">Liferay Certification Quizz</h1>
+
+				{authenticated ? (
+					<div className="grid grid-cols-1 gap-4">
+						{Array(4)
+							.fill(null)
+							.map((_, index) => {
+								let Icon;
+								switch (index) {
+									case 0:
+										Icon = IconHexagonNumber1;
+										break;
+									case 1:
+										Icon = IconHexagonNumber2;
+										break;
+									case 2:
+										Icon = IconHexagonNumber3;
+										break;
+									case 3:
+										Icon = IconHexagonNumber4;
+										break;
+									default:
+										Icon = IconHexagonNumber1;
+								}
+								return (
+									<Link href={`/quizz/test-${index + 1}`}>
+										<button
+											disabled={index !== 0}
+											className={`w-full flex items-center space-x-2 font-semibold px-6 py-3 transition duration-300 ease-in-out rounded-md shadow-sm ${
+												index === 0
+													? "bg-blue-600 hover:bg-blue-700 text-white"
+													: "bg-gray-100 cursor-not-allowed text-gray-500"
+											}`}
+										>
+											<Icon className="w-6 h-6 text-yellow-400" />
+											<span>
+												{index === 0 ? "Test 1" : `Test ${index + 1} (WIP)`}
+											</span>
+										</button>
+									</Link>
+								);
+							})}
+					</div>
+				) : (
+					<>
+						<form onSubmit={handleLogin} className="space-y-4">
+							<input
+								type="text"
+								placeholder="Username"
+								value={username}
+								onChange={(e) => setUsername(e.target.value)}
+								className="w-full p-3 border border-gray-300 bg-white rounded-md hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+							/>
+							<input
+								type="password"
+								placeholder="Password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								className="w-full p-3 border border-gray-300 bg-white rounded-md hover:border-gray-400 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+							/>
+							<button
+								type="submit"
+								className={`w-full p-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition duration-300 ease-in-out rounded-md shadow-sm ${
+									!username || !password ? "opacity-50 cursor-not-allowed" : ""
+								}`}
+								disabled={!username || !password}
+							>
+								Login
+							</button>
+						</form>
+						{error && <p className="mt-4 text-center text-red-500">{error}</p>}
+					</>
+				)}
+
+      <footer className="mt-8 text-center text-gray-400 text-xs">
+        <p>
+          Made with{" "}
+          <span role="img" aria-label="heart">
+            ❤️
+          </span>{" "}
+          by{" "}
+          <a
+            href="https://es.linkedin.com/in/alex-gheorghe-calin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Alex Gheorghe
+          </a>
+        </p>
+      </footer>
+
+
+			</div>
+		</main>
+	);
 }
