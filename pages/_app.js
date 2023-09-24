@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import AuthContext from '../context/authContext';
 import { useState, useEffect } from 'react';
+<link rel="icon" href="/favicon.ico" sizes="any" />
 
 function MyApp({ Component, pageProps }) {
 
