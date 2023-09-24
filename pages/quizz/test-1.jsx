@@ -112,8 +112,8 @@ const QuizPage = () => {
         <div className="min-h-screen bg-gray-100">
             <div className="max-w-3xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
 
-                <div className="mb-6 p-6 bg-white rounded-lg shadow">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="mb-6 p-4 sm:p-6 bg-white rounded-lg shadow">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <p className="text-sm font-medium text-gray-600">Total Questions</p>
                             <p className="mt-1 text-lg font-semibold">{questions.length}</p>
@@ -130,8 +130,8 @@ const QuizPage = () => {
                 </div>
 
                 {!showResults ? (
-                    <div className="bg-white p-6 rounded-lg shadow">
-                        <h3 className="text-xl mb-6 font-semibold text-gray-700">{question}</h3>
+                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow">
+                        <h3 className="text-xl sm:text-2xl mb-6 font-semibold text-gray-700">{question}</h3>
                         <ul className="space-y-2">
                             {answers.map((answer, idx) => (
                                 <li
@@ -149,19 +149,19 @@ const QuizPage = () => {
                                 </li>
                             ))}
                         </ul>
-                        <div className="mt-4 flex items-center justify-between">
+                        <div className="mt-4 flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
                             {explanation && (
-                                <div>
+                                <div className="w-full sm:w-auto">
                                     {!showExplanation ? (
                                         <button
-                                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+                                            className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
                                             onClick={() => setShowExplanation(true)}
                                         >
                                             View Explanation
                                         </button>
                                     ) : (
                                         <button
-                                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+                                            className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
                                             onClick={() => setShowExplanation(false)}
                                         >
                                             Hide Explanation
@@ -171,7 +171,7 @@ const QuizPage = () => {
                             )}
                             {isAnswerCorrect !== null && (
                                 <button
-                                    className='px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded'
+                                    className='w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded'
                                     onClick={handleNext}
                                 >
                                     {activeQuestion === questions.length - 1 ? 'Finish' : 'Next Question'}
@@ -185,8 +185,8 @@ const QuizPage = () => {
                         )}
                     </div>
                 ) : (
-                    <div className="bg-white p-6 rounded-lg shadow text-center">
-                        <p className="text-2xl mb-6 font-semibold text-gray-800">Quiz Results</p>
+                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow text-center">
+                        <p className="text-xl sm:text-2xl mb-6 font-semibold text-gray-800">Quiz Results</p>
                         <p className="text-lg mb-2">Total Questions: {questions.length}</p>
                         <p className="text-lg mb-2">Correct Answers: {correctAnswers}</p>
                         <p className="text-lg mb-2">Score: {scorePercentage}%</p>
@@ -200,5 +200,5 @@ const QuizPage = () => {
             </div>
         </div>
     );
-};
+}
 export default QuizPage;

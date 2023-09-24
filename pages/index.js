@@ -119,7 +119,7 @@ export default function Home() {
                     </span>{" "}
                     by{" "}
                     <a
-                        href="https://es.linkedin.com/in/alex-gheorghe-calin"
+                        href="https://linkedin.com/in/alex-gheorghe-calin"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline"
