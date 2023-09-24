@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '@/context/authContext.js';
 import { useRouter } from 'next/router';
-import { quizzData } from './data.js';
+import { quizzData } from '../api/data.js';
 
 /**
  * QuizPage Component: Renders the quiz interface to the user.
