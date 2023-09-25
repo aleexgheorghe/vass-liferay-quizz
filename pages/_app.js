@@ -29,9 +29,6 @@ function MyApp({ Component, pageProps }) {
     setAuthenticated(false);
   };
 
-  const { asPath } = useRouter();
-  const canonicalURL = `https://liferay.alexgheorghe.com${asPath}`;
-
   return (
     <AuthContext.Provider value={{ authenticated, login, logout }}>
 
@@ -40,7 +37,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content="Dedicated Q&A platform tailored for the Liferay certification, specifically focusing on version 7.4 and customized for VASS. Prepare effectively and optimize your chances for success." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="canonical" href={canonicalURL} />
+        <link rel="canonical" href="https://liferay.alexgheorghe.com" />
       </Head>
 
       <Component {...pageProps} />
