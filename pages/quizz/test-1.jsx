@@ -52,6 +52,7 @@ const QuizPage = () => {
             setSelectedAnswersIndex(newSelectedAnswers);
             if (newSelectedAnswers.every(i => correctAnswer.includes(answers[i])) && newSelectedAnswers.length === correctAnswer.length) {
                 setIsAnswerCorrect(true);
+                setCorrectAnswers(prevCount => prevCount + 1);  // Increment correct answers count
             } else {
                 setIsAnswerCorrect(false);
             }
@@ -59,6 +60,7 @@ const QuizPage = () => {
             setSelectedAnswersIndex([idx]);
             if (answer === correctAnswer[0]) {
                 setIsAnswerCorrect(true);
+                setCorrectAnswers(prevCount => prevCount + 1);  // Increment correct answers count
             } else {
                 setIsAnswerCorrect(false);
             }
@@ -75,6 +77,7 @@ const QuizPage = () => {
             setActiveQuestion(activeQuestion + 1);
             setIsAnswerCorrect(null);
             setSelectedAnswersIndex([]);
+            setShowExplanation(false); // Reset the explanation visibility
         }
     };
 
@@ -105,15 +108,21 @@ const QuizPage = () => {
         return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
+    // shotResult logic
+    const endQuizEarly = () => {
+        setShowResults(true);
+    };
+
     // Calculate the score in percentage
     const scorePercentage = Math.round((correctAnswers / questions.length) * 100);
+
 
     return (
         <div className="min-h-screen bg-gray-100">
             <div className="max-w-3xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
 
                 <div className="mb-6 p-4 sm:p-6 bg-white rounded-lg shadow">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                         <div>
                             <p className="text-sm font-medium text-gray-600">Total Questions</p>
                             <p className="mt-1 text-lg font-semibold">{questions.length}</p>
@@ -125,6 +134,14 @@ const QuizPage = () => {
                         <div>
                             <p className="text-sm font-medium text-gray-600">Questions Remaining</p>
                             <p className="mt-1 text-lg font-semibold">{questions.length - activeQuestion}</p>
+                        </div>
+                        <div className="flex flex-col sm:flex-row items-center justify-between w-full sm:w-auto">
+                            <button
+                                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded w-full sm:w-auto mb-2 sm:mb-0"
+                                onClick={endQuizEarly}
+                            >
+                                End Quiz
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -180,23 +197,65 @@ const QuizPage = () => {
                         </div>
                         {showExplanation && explanation && (
                             <div className="mt-4 p-4 bg-gray-100 rounded">
-                                <p className="text-gray-700">{explanation}</p>
+                                <p className="text-gray-700">{explanation} {" "}
+
+                                    {questions[activeQuestion].reference && (
+                                        <a
+                                            href={questions[activeQuestion].reference}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 hover:underline"
+                                        >
+                                            Reference
+                                        </a>
+                                    )}
+
+                                </p>
                             </div>
                         )}
                     </div>
                 ) : (
-                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow text-center">
-                        <p className="text-xl sm:text-2xl mb-6 font-semibold text-gray-800">Quiz Results</p>
-                        <p className="text-lg mb-2">Total Questions: {questions.length}</p>
-                        <p className="text-lg mb-2">Correct Answers: {correctAnswers}</p>
-                        <p className="text-lg mb-2">Score: {scorePercentage}%</p>
+                    <div className="bg-white p-6 rounded-lg shadow text-center">
+                        <h2 className="text-2xl sm:text-3xl mb-6 font-semibold text-gray-800">Quiz Results</h2>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+                            <div>
+                                <span className="text-lg text-gray-700">Total Questions:</span>
+                                <span className="block text-xl font-semibold">{questions.length}</span>
+                            </div>
+                            <div>
+                                <span className="text-lg text-gray-700">Correct Answers:</span>
+                                <span className="block text-xl font-semibold">{correctAnswers}</span>
+                            </div>
+                            <div>
+                                <span className="text-lg text-gray-700">Score:</span>
+                                <span className="block text-xl font-semibold">{scorePercentage}%</span>
+                            </div>
+                        </div>
+
                         {scorePercentage >= 75 ? (
-                            <p className="text-green-600 text-xl">Congratulations! You passed.</p>
+                            <p className="text-green-600 text-xl mb-6">Congratulations! You passed.</p>
                         ) : (
-                            <p className="text-red-600 text-xl">You did not pass. Try again!</p>
+                            <p className="text-red-600 text-xl mb-6">Sorry! You failed. Need to score 75% or higher to pass.</p>
                         )}
+
+                        <button
+                            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded focus:outline-none transition duration-300"
+                            onClick={() => {
+                                setActiveQuestion(0);
+                                setCorrectAnswers(0);
+                                setShowResults(false);
+                                setTimeRemaining(50 * 60);
+                            }}
+                        >
+                            Retry Quiz
+                        </button>
+
                     </div>
                 )}
+
+
+
             </div>
         </div>
     );
