@@ -38,6 +38,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="canonical" href="https://liferay.alexgheorghe.com" />
+        <meta name="language" content="en" />
       </Head>
 
       <Component {...pageProps} />
