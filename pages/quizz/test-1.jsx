@@ -1,6 +1,6 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import AuthContext from '@/context/authContext.js';
+import AuthContext from '../../context/authContext.js';
 import { useRouter } from 'next/router';
 import { quizzData } from '../api/data.js';
 
