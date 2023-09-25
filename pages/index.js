@@ -19,6 +19,9 @@ export default function Home() {
   const users = [
     { username: "pabloh", password: "pablo.vass" },
     { username: "alexg", password: "alex.vass" },
+    { username: "vicente", password: "vicente.vass" },
+    { username: "danip", password: "dani.vass" },
+    { username: "javiv", password: "javi.vass" },
     { username: "testUser", password: "testP4ssword" },
   ];
 
