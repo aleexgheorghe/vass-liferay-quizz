@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps }) {
 
 <Head>
         <title>Liferay Quizz</title>
-        <meta name="description" content="A description of what this website is about." />
+        <meta name="description" content="Dedicated Q&A platform tailored for the Liferay certification, specifically focusing on version 7.4 and customized for VASS. Prepare effectively and optimize your chances for success." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
