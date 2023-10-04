@@ -1,4 +1,4 @@
-export const quizzData = {
+export const backTest2Data = {
 	questions: [
 		{
 			id: 1,

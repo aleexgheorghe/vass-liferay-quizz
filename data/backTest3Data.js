@@ -1,4 +1,4 @@
-export const quizzData = {
+export const backTest3Data = {
 	questions: [
 		{
 			id: 1,
@@ -339,7 +339,7 @@ export const quizzData = {
 			explanation: null,
 			reference:
 				"https://help.liferay.com/hc/en-us/articles/360018164591-Blade-CLI",
-		}
+		},
 
 		{
 			id: 27,
@@ -510,7 +510,7 @@ export const quizzData = {
 			correctAnswer: ["True"],
 			explanation: null,
 			reference: null,
-		}
+		},
 
 		{
 			id: 39,
@@ -544,7 +544,7 @@ export const quizzData = {
 			correctAnswer: ["All of the above."],
 			explanation: null,
 			reference: null,
-		}
+		},
 
 		{
 			id: 41,
